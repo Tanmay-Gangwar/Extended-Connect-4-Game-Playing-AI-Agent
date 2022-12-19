@@ -1,0 +1,44 @@
+2020CS10399 - Tanmay
+2020CS10383 - Shivam Singh
+
+Overall Main Idea to play extended Connect 4 game:
+After so much experience we have deduced that center in the game is of great importance. Therefore in heuristic function, we have given special weight to the center.
+
+Idea for playing against "random" opponent:
+As the opponent chooses any random move, we have implemented expectimax algorithm.
+In player's turn expectimax function is called at depth - 1 and the move which leads to maximum score is taken.
+In random's turn expectimax function is called at depth - 1 and the average score for all the moves is taken.
+
+
+Idea for playing against the "adversary":
+Alpha-Beta pruning is used to find the best move at that position and at the leaf node, heuristic function gives the heuristic value.
+
+Funtions Used:
+
+playMove:
+    playPopMove:
+        updates the board after playing the given pop move
+    playInsertMove:
+        updates the board after playing the given insert move
+
+undoMove:
+    undoPopMove:
+        updates the board after undoing the last played pop move
+    undoInsertMove:
+        updates the board after undoing the last insert move
+    
+
+alphaBeta function: 
+At depth == 0: it returns the heuristic value
+At depth > 0:
+    if depth > 3: It finds the expected scores for all the moves at depth d - 3 and then sort the moves accordingly to prune most of the trees.
+    It then performs basic alpha-beta pruning for all the possible moves
+
+heuristic function: 
+Main heuristic of the board is the get_pts(1, state) - get_pts(2, state). After that as the main idea is to control the center as much as possible, value of distance from the center is also added as the weight for the board.
+
+getAvailableMoves:
+This function returns all the possible moves available.
+As noticed, there is no need of using pop moves early in the game so to preven that, we have created our own getAvailableMoves function.
+
+And at last, all the functions are run at mxDepth only till time passed. AFter every successful function call, mxDepth increases by 1.
